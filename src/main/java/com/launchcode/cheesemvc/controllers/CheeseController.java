@@ -1,5 +1,6 @@
 package com.launchcode.cheesemvc.controllers;
 
+import com.launchcode.cheesemvc.models.Cheese;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,7 +17,7 @@ import java.util.Map;
 @RequestMapping("cheese")
 public class CheeseController {
 
-    static Map<String, String> cheeses = new HashMap<>();
+    static List<Cheese> cheeses = new ArrayList<>();
 
     @RequestMapping(value = "")
     public String index(Model model) {
@@ -35,9 +36,8 @@ public class CheeseController {
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String processAddCheeseForm(@RequestParam String cheeseName, @RequestParam String cheeseDescription) {
-        if (!cheeses.containsKey(cheeseName)) {
-            cheeses.put(cheeseName, cheeseDescription);
-        }
+        Cheese cheese = new Cheese().setName(cheeseName).setDescription(cheeseDescription);
+        cheeses.add(cheese);
         return "redirect:";
     }
 
@@ -49,8 +49,16 @@ public class CheeseController {
     }
 
     @RequestMapping(value = "/remove", method = RequestMethod.POST)
-    public String deleteCheese(@RequestParam String cheese) {
-        cheeses.remove(cheese);
+    public String deleteCheese(@RequestParam String cheeseName) {
+        List<Cheese> cheeseCopy = new ArrayList<>(cheeses);
+
+        for (Cheese cheese : cheeses) {
+            if (cheese.getName().equals(cheeseName)) {
+                cheeseCopy.remove(cheese);
+            }
+        }
+
+        cheeses = cheeseCopy;
 
         return "redirect:";
     }
