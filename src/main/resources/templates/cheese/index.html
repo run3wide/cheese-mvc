@@ -7,14 +7,14 @@
 
 <nav th:replace="fragments :: navigation"></nav>
 
-<p th:unless="${cheeses} and ${cheeses.size()}">no cheese :(</p>
+<p th:unless="${cheeses}">no cheese :(</p>
 
 <table>
     <th>Cheese Name</th>
     <th>Description</th>
-    <tr th:each="cheese : ${cheeses}">
-        <td th:text="${cheese.getName()}">Key</td>
-        <td th:text="${cheese.getDescription()}">Value </td>
+    <tr th:each="cheese : ${cheeses.values()}">
+        <td th:text="${cheese.name}">Key</td>
+        <td th:text="${cheese.description}">Value </td>
     </tr>
 </table>
 

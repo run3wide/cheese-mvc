@@ -6,10 +6,13 @@
 </head>
 <body>
 
-<form>
-    <label>
-        <input th:>
-    </label>
+<p th:replace="fragments :: navigation"></p>
+
+<form method="post">
+    <input type="text" name="userName" placeholder="Username"/>
+    <input type="text" name="email" placeholder="Email"/>
+    <input type="password" name="password" placeholder="Password"/>
+    <input type="submit" value="Add User"/>
 </form>
 
 </body>

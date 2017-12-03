@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head th:replace="fragments :: head">
 
 </head>
@@ -10,10 +10,15 @@
 <nav th:replace="fragments :: navigation"></nav>
 
 <form method="post">
-    <select name="cheeseName" >
-        <option th:each="cheese : ${cheeses}" th:value="${cheese.getName()}" th:text="${cheese.getName()}">Name</option>
-    </select>
+
+    <div th:each="cheese : ${cheeses.values()}" >
+            <input type="checkbox" name="cheeseIds" th:value="${cheese.id}" th:id="${cheese.id}" th:text="${cheese.name}"/>
+        <label th:for="${cheese.id}" th:text="${cheese.description}"></label>
+        <br/>
+
+    </div>
     <input type="submit"/>
+
 </form>
 
 </body>
